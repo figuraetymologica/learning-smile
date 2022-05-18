@@ -14,9 +14,7 @@ function setup() {
 
   canvas = createCanvas(270, 480).parent('myCanvas');
   // use an async callback to load in the models and run the getResults() function
-  var constraints = {audio: false, video: {facingMode: "user"}};
-  
-  vid = createCapture(constraints, async () => {
+  vid = createCapture(VIDEO, async () => {
     await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
     await faceapi.loadFaceLandmarkModel(MODEL_URL);
     await faceapi.loadFaceRecognitionModel(MODEL_URL);
@@ -42,7 +40,7 @@ function draw() {
   scale(-1, 1);
   background(170, 153, 255);
   //imageMode(CENTER);
-  image(vid, 0, 0);
+  //image(vid, 0, 0);
   let eyeX;
   let eyeY;
 
