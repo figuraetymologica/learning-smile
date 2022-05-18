@@ -3,12 +3,12 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var port = 3000;
+const PORT =  process.env.PORT || 3000;
 
 // Mit diesem Kommando starten wir den Webserver.
-server.listen(port, function () {
+server.listen(PORT, function () {
 // Wir geben einen Hinweis aus, dass der Webserer läuft.
-console.log('Webserver läuft und hört auf Port %d', port);
+console.log('Webserver läuft und hört auf Port %d', PORT);
 });
 
 // Hier teilen wir express mit, dass die öffentlichen HTML-Dateien
