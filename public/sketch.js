@@ -114,7 +114,3 @@ function face(addX, addY){
   endShape();
   resetMatrix();
 }
-
-function mousePressed(){
-  happy = !happy;
-}
