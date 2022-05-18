@@ -16,7 +16,7 @@ function setup() {
   // use an async callback to load in the models and run the getResults() function
   var constraints = {audio: false, video: {facingMode: "user"}};
   
-  vid = createCapture(VIDEO, async () => {
+  vid = createCapture(constraints, async () => {
     await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
     await faceapi.loadFaceLandmarkModel(MODEL_URL);
     await faceapi.loadFaceRecognitionModel(MODEL_URL);
