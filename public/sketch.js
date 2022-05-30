@@ -8,6 +8,7 @@ let div;
 let loaded = false;
 
 let happy = false;
+let smileLvl;
 
 function setup() {
   div = createDiv('<br>face-api models are loading...');
@@ -78,6 +79,7 @@ function draw() {
           //text(label, x / 2, y + h / 2);
         }else if (confidence > 0.8){
           happy = false;
+          smileLvl = 0;
         }
       }
     }
@@ -107,7 +109,10 @@ function face(addX, addY){
   curveVertex(-75 + moveX, 50 + moveY);
   if(happy){
     noFill();
-    curveVertex(0 + moveX, 75 + moveY);
+    curveVertex(0 + moveX, 50 + smileLvl + moveY );
+    if(smileLvl < 30){
+      smileLvl += .5;
+    }
   }
   curveVertex(75 + moveX, 50 + moveY);
   curveVertex(75 + moveX, 50 + moveY);
