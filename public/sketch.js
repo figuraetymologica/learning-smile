@@ -7,6 +7,8 @@ let btn;
 let div;
 let loaded = false;
 
+let startButton;
+
 let happy = false;
 let smileLvl;
 
@@ -20,7 +22,13 @@ function setup() {
     await faceapi.loadFaceLandmarkModel(MODEL_URL);
     await faceapi.loadFaceRecognitionModel(MODEL_URL);
     await faceapi.loadFaceExpressionModel(MODEL_URL);
-    div.elt.innerHTML = '<br>model loaded!';
+    //div.elt.innerHTML = '<br>model loaded!';
+    //Button zum Starten/Fullscreen-Aktivierung: Fullscreen kann nur durch Userinteraktion gestartet werden
+    div.hide();
+    startButton = createButton("start learning-smile");
+    startButton.class("button");
+    startButton.mousePressed(startApp);
+    
     loaded = true;
     getResults(); // init once
   }).parent('myCanvas');
@@ -28,13 +36,10 @@ function setup() {
   vid.hide();
 }
 
-
-
 async function getResults() {
   results = await faceapi.detectSingleFace(vid.elt).withFaceExpressions();
   getResults();
 }
-
 
 function draw() {
   translate(width/2, height/2);
@@ -118,4 +123,12 @@ function face(addX, addY){
   curveVertex(75 + moveX, 50 + moveY);
   endShape();
   resetMatrix();
+}
+
+function startApp(){
+  startButton.hide();
+  canvas.show();
+  canvas = resizeCanvas(displayWidth, displayHeight);
+  canvas = fullscreen(true);
+  console.log(width);
 }
