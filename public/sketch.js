@@ -128,7 +128,5 @@ function face(addX, addY){
 function startApp(){
   startButton.hide();
   canvas.show();
-  canvas = resizeCanvas(displayWidth, displayHeight);
-  canvas = fullscreen(true);
-  console.log(width);
+  canvas = resizeCanvas(windowWidth, windowHeight);
 }
