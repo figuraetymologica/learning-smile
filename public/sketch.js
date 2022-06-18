@@ -39,7 +39,7 @@ async function getResults() {
 function draw() {
   translate(width/2, height/2);
   scale(-1, 1);
-  background(170, 153, 255);
+  background(0, 0, 255); //background(170, 153, 255);
   //imageMode(CENTER);
   //image(vid, 0, 0);
   let eyeX;
