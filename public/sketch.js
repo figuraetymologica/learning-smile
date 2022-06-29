@@ -1,16 +1,16 @@
 const MODEL_URL = 'models/';
-let canvas;
-let vid;
-let results;
-let landmarks;
-let btn;
-let div;
-let loaded = false;
+var canvas;
+var vid;
+var results;
+var landmarks;
+var btn;
+var div;
+var loaded = false;
 
-let startButton;
+var startButton;
 
-let happy = false;
-let smileLvl;
+var happy = false;
+var smileLvl = 0;
 
 function setup() {
   div = createDiv('<br>face-api models are loading...');
@@ -109,20 +109,21 @@ function face(addX, addY){
   ellipse(50 + moveX, -50 + moveY, 15);
   stroke(255);
   strokeWeight(7);
+  noFill();
   beginShape();
-  curveVertex(-75 + moveX, 50 + moveY);
-  curveVertex(-75 + moveX, 50 + moveY);
-  if(happy){
-    noFill();
-    curveVertex(0 + moveX, 50 + smileLvl + moveY );
-    if(smileLvl < 30){
-      smileLvl += .5;
-    }
-  }
-  curveVertex(75 + moveX, 50 + moveY);
-  curveVertex(75 + moveX, 50 + moveY);
+  curveVertex(-65 + moveX - smileLvl, 50 + moveY - smileLvl * 2);
+  curveVertex(-65 + moveX - smileLvl * .5, 50 + moveY - smileLvl);
+  curveVertex(-25 + moveX, 50 + moveY);
+  curveVertex(25 + moveX, 50 + moveY);
+  curveVertex(65 + moveX + smileLvl * .5, 50 + moveY -smileLvl);
+  curveVertex(65 + moveX + smileLvl, 50 + moveY - smileLvl * 2);
   endShape();
   resetMatrix();
+  if(happy){
+    if(smileLvl < 30){
+      smileLvl += .3;
+    }
+  }
 }
 
 function startApp(){
