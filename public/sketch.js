@@ -25,7 +25,7 @@ function setup() {
     //div.elt.innerHTML = '<br>model loaded!';
     //Button zum Starten/Fullscreen-Aktivierung: Fullscreen kann nur durch Userinteraktion gestartet werden
     div.hide();
-    startButton = createButton("start learning-smile");
+    startButton = createButton("fullscreen (allow camera first!)");
     startButton.class("button");
     startButton.mousePressed(startApp);
     
