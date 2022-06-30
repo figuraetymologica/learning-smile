@@ -121,7 +121,7 @@ function face(addX, addY){
   resetMatrix();
   if(happy){
     if(smileLvl < 30){
-      smileLvl += .3;
+      smileLvl += .7;
     }
   }
 }
