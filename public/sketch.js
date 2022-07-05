@@ -9,8 +9,11 @@ var loaded = false;
 
 var startButton;
 
-var happy = false;
+var previouslyMoving = false;
+var prevMoves = [];
+
 var smileLvl = 0;
+var startLearning = false;
 
 function setup() {
   div = createDiv('<br>face-api models are loading...');
@@ -23,7 +26,7 @@ function setup() {
     //div.elt.innerHTML = '<br>model loaded!';
     //Button zum Starten/Fullscreen-Aktivierung: Fullscreen kann nur durch Userinteraktion gestartet werden
     div.hide();
-    startButton = createButton("fullscreen (allow camera first!)");
+    startButton = createButton("interaction start!");
     startButton.class("button");
     startButton.mousePressed(startApp);
     
@@ -47,6 +50,7 @@ function draw() {
   //image(vid, 0, 0);
   let eyeX;
   let eyeY;
+  let happy;
 
   if (loaded) {
 
@@ -79,25 +83,32 @@ function draw() {
         
         if (label == "happy" && confidence > 0.8) {
           happy = true;
-          //text(label, x / 2, y + h / 2);
         }else if (confidence > 0.8){
           happy = false;
           smileLvl = 0;
         }
       }
+    }else{
+      happy = false;
     }
   }
-  face(eyeX, eyeY);
+  face(eyeX, eyeY, happy);
 }
 
-function face(addX, addY){
+function face(addX, addY, happy){
   let movement = 80;
   let moveX = 0;
   let moveY = 0;
 
-  if(addX && addY){
-    moveX = map(addX, 0, vid.width, -movement, movement);
-    moveY = map(addY, 0, vid.height, -movement, movement);
+  if(addX && addY && startLearning){
+    moveX = int(map(addX, 0, vid.width, -movement, movement));
+    moveY = int(map(addY, 0, vid.height, -movement, movement));
+
+    previouslyMoving = true;
+    prevMoves = [moveX, moveY];
+  }else if(previouslyMoving){
+    moveX = prevMoves[0];
+    moveY = prevMoves[1];
   }
 
   ellipseMode(CENTER);
@@ -117,7 +128,7 @@ function face(addX, addY){
   curveVertex(65 + moveX + smileLvl, 50 + moveY - smileLvl * 2);
   endShape();
   resetMatrix();
-  if(happy){
+  if(happy && startLearning){
     if(smileLvl < 30){
       smileLvl += .7;
     }
@@ -128,4 +139,9 @@ function startApp(){
   startButton.hide();
   canvas.show();
   canvas = resizeCanvas(windowWidth, windowHeight);
+  startLearning = true;
+}
+
+//damit nicht so holprig zurückgesprungen wird, wenn das Gesicht kurz nicht erkannt wird
+function swingBack(){ 
 }
