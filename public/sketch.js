@@ -12,6 +12,10 @@ var startButton;
 var smileLvl = 0;
 var startLearning = false;
 
+var lastMoved = [];
+var lastMovement = [];
+var personGone;
+
 var moveX = 0;
 var moveY = 0;
 
@@ -35,6 +39,10 @@ function setup() {
   }).parent('myCanvas');
   vid.size(480, 640);
   vid.hide();
+
+  for(let i = 0; i < 75; i++){
+    lastMoved.push(false);
+  }
 }
 
 async function getResults() {
@@ -97,40 +105,45 @@ function draw() {
 }
 
 function face(addX, addY, happy){
-  let directionX = 0;
-  let directionY = 0;
+  let movement = 80;
+  let moveX = 0;
+  let moveY = 0;
 
   if(addX && addY && startLearning){
-    directionX = map(addX, 0, vid.width, -1, 1);
-    directionY = map(addY, 0, vid.height, -1, 1);
+    moveX = map(addX, 0, vid.width, -movement, movement);
+    moveY = map(addY, 0, vid.height, -movement, movement);
+
+    lastMovement = [moveX, moveY];
+    lastMoved.shift();
+    lastMoved.push(true);
   }else if(startLearning){
-    directionX, directionY = 0;
-  }
+    lastMoved.shift();
+    lastMoved.push(false);
 
-  if(directionX > 0 && moveX < 80){
-    moveX += 3;
-  }else if(directionX < 0 && moveX > -80){
-    moveX -= 3;
-  }else if(directionX == 0 && moveX != 0){
-    if(moveX > 0){
-      moveX--;
-    }else{
-      moveX++;
+    personGone = true;
+
+    for(let i = 0; i < lastMoved.length; i++){
+      if(lastMoved[i]){
+        personGone = false;
+      }
     }
-  }
 
-  if(directionY > 0 && moveY < 80){
-    moveY += 3;
-  }else if(directionY < 0 && moveY > -80){
-    moveY -= 3;
-  }else if(directionY == 0 && moveY != 0){
-    if(moveY > 0){
-      moveY--;
-    }else{
-      moveY++;
+    if(personGone){
+      if(lastMovement[0] > 0){
+        lastMovement[0] -= random(0, 3);
+      }else if(lastMovement[0] < 0){
+        lastMovement[0] += random(0, 3);;
+      }
+
+      if(lastMovement[1] > 0){
+        lastMovement[1] -= random(0, 3);
+      }else if(lastMovement[1] < 0){
+        lastMovement[1] += random(0, 3);
+      }
     }
+    moveX = lastMovement[0];
+    moveY = lastMovement[1];
   }
-
 
 
   ellipseMode(CENTER);
