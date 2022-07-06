@@ -26,8 +26,8 @@ function setup() {
   // use an async callback to load in the models and run the getResults() function
   vid = createCapture(VIDEO, async () => {
     await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-    //await faceapi.loadFaceExpressionModel(MODEL_URL);
-    await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
+    await faceapi.loadFaceExpressionModel(MODEL_URL);
+    //await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
     //div.elt.innerHTML = '<br>model loaded!';
     //Button zum Starten/Fullscreen-Aktivierung: Fullscreen kann nur durch Userinteraktion gestartet werden
     div.hide();
