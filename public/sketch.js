@@ -45,15 +45,13 @@ async function getResults() {
 function draw() {
   translate(width/2, height/2);
   scale(-1, 1);
-  background(0, 0, 255); //background(170, 153, 255);
-  //imageMode(CENTER);
-  image(vid, 0, 0);
+  background(0, 0, 255);
+  
   let eyeX;
   let eyeY;
   let happy;
 
   if (loaded) {
-
     // results
     if (results) {
 
@@ -92,6 +90,7 @@ function draw() {
       happy = false;
     }
   }
+  scale(2);
   face(eyeX, eyeY, happy);
 }
 
