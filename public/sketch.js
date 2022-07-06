@@ -9,9 +9,6 @@ var loaded = false;
 
 var startButton;
 
-var previouslyMoving = false;
-var prevMoves = [];
-
 var smileLvl = 0;
 var startLearning = false;
 
@@ -33,7 +30,7 @@ function setup() {
     loaded = true;
     getResults(); // init once
   }).parent('myCanvas');
-  vid.size(480, 640);
+  vid.size(640, 480);
   vid.hide();
 }
 
@@ -45,12 +42,15 @@ async function getResults() {
 function draw() {
   translate(width/2, height/2);
   scale(-1, 1);
-  background(0, 0, 255);
+  background(0, 0, 255); //background(170, 153, 255);
+  //imageMode(CENTER);
+  //image(vid, 0, 0);
   let eyeX;
   let eyeY;
   let happy;
 
   if (loaded) {
+
     // results
     if (results) {
 
@@ -80,6 +80,7 @@ function draw() {
         
         if (label == "happy" && confidence > 0.8) {
           happy = true;
+          //text(label, x / 2, y + h / 2);
         }else if (confidence > 0.8){
           happy = false;
           smileLvl = 0;
@@ -97,17 +98,10 @@ function face(addX, addY, happy){
   let moveX = 0;
   let moveY = 0;
 
-  /*if(addX && addY && startLearning){
-    moveX = int(map(addX, 0, vid.width, -movement, movement));
-    moveY = int(map(addY, 0, vid.height, -movement, movement));
-  }*/
-    /*
-    previouslyMoving = true;
-    prevMoves = [moveX, moveY];
-  }else if(previouslyMoving){ //damit bei nicht-Erkennen nicht "holprig" zurückgesprungen wird
-    moveX = prevMoves[0];
-    moveY = prevMoves[1];
-  }*/
+  if(addX && addY && startLearning){
+    moveX = map(addX, 0, vid.width, -movement, movement);
+    moveY = map(addY, 0, vid.height, -movement, movement);
+  }
 
   ellipseMode(CENTER);
   fill(255);
