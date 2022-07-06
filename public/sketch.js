@@ -109,7 +109,7 @@ function draw() {
 }
 
 function face(addX, addY, happy){
-  let movement = 80;
+  let movement = 160;
   let moveX = 0;
   let moveY = 0;
 
