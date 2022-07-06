@@ -40,7 +40,7 @@ function setup() {
   vid.size(480, 640);
   vid.hide();
 
-  for(let i = 0; i < 75; i++){
+  for(let i = 0; i < 100; i++){
     lastMoved.push(false);
   }
 }
@@ -118,7 +118,7 @@ function face(addX, addY, happy){
     lastMovement = [moveX, moveY];
     lastMoved.shift();
     lastMoved.push(true);
-  } /*else if(startLearning){
+  }else if(startLearning){
     lastMoved.shift();
     lastMoved.push(false);
 
@@ -145,7 +145,7 @@ function face(addX, addY, happy){
     }
     moveX = lastMovement[0];
     moveY = lastMovement[1];
-  }*/
+  }
 
 
   ellipseMode(CENTER);
