@@ -169,7 +169,7 @@ function face(addX, addY, happy){
   resetMatrix();
   if(happy && startLearning){
     if(smileLvl < 60){
-      smileLvl += .8;
+      smileLvl += 1.2;
     }
   }
 }
