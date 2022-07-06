@@ -1,3 +1,5 @@
+const { imag } = require("blink-detection");
+
 const MODEL_URL = 'models/';
 var canvas;
 var vid;
@@ -49,8 +51,8 @@ function draw() {
   translate(width/2, height/2);
   //scale(-1, 1);
   background(0, 0, 255);
-  textAlign(CENTER);
-  text(vid.width+", "+vid.height, 0, 0);
+  imageMode(CENTER);
+  image(vid, 0, 0);
   /*
   let eyeX;
   let eyeY;
