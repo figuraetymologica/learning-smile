@@ -30,7 +30,7 @@ function setup() {
     loaded = true;
     getResults(); // init once
   }).parent('myCanvas');
-  vid.size(640, 480);
+  vid.size(480, 640);
   vid.hide();
 }
 
