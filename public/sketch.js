@@ -1,5 +1,3 @@
-const { imag } = require("blink-detection");
-
 const MODEL_URL = 'models/';
 var canvas;
 var vid;
