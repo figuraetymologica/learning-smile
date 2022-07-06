@@ -12,6 +12,9 @@ var startButton;
 var smileLvl = 0;
 var startLearning = false;
 
+var moveX = 0;
+var moveY = 0;
+
 function setup() {
   div = createDiv('<br>face-api models are loading...');
 
@@ -94,34 +97,61 @@ function draw() {
 }
 
 function face(addX, addY, happy){
-  let movement = 80;
-  let moveX = 0;
-  let moveY = 0;
+  let directionX = 0;
+  let directionY = 0;
 
   if(addX && addY && startLearning){
-    moveX = map(addX, 0, vid.width, -movement, movement);
-    moveY = map(addY, 0, vid.height, -movement, movement);
+    directionX = map(addX, 0, vid.width, -1, 1);
+    directionY = map(addY, 0, vid.height, -1, 1);
+  }else if(startLearning){
+    directionX, directionY = 0;
   }
+
+  if(directionX > 0 && moveX < 80){
+    moveX += 3;
+  }else if(directionX < 0 && moveX > -80){
+    moveX -= 3;
+  }else if(directionX == 0 && moveX != 0){
+    if(moveX > 0){
+      moveX--;
+    }else{
+      moveX++;
+    }
+  }
+
+  if(directionY > 0 && moveY < 80){
+    moveY += 3;
+  }else if(directionY < 0 && moveY > -80){
+    moveY -= 3;
+  }else if(directionY == 0 && moveY != 0){
+    if(moveY > 0){
+      moveY--;
+    }else{
+      moveY++;
+    }
+  }
+
+
 
   ellipseMode(CENTER);
   fill(255);
   noStroke();
-  ellipse(-50 + moveX, -50 + moveY, 15);
-  ellipse(50 + moveX, -50 + moveY, 15);
+  ellipse(-100 + moveX, -100 + moveY, 30);
+  ellipse(100 + moveX, -100 + moveY, 30);
   stroke(255);
-  strokeWeight(7);
+  strokeWeight(14);
   noFill();
   beginShape();
-  curveVertex(-65 + moveX - smileLvl, 50 + moveY - smileLvl * 2);
-  curveVertex(-65 + moveX - smileLvl * .5, 50 + moveY - smileLvl);
-  curveVertex(-25 + moveX, 50 + moveY);
-  curveVertex(25 + moveX, 50 + moveY);
-  curveVertex(65 + moveX + smileLvl * .5, 50 + moveY -smileLvl);
-  curveVertex(65 + moveX + smileLvl, 50 + moveY - smileLvl * 2);
+  curveVertex(-130 + moveX - smileLvl, 100 + moveY - smileLvl * 2);
+  curveVertex(-130 + moveX - smileLvl * .5, 100 + moveY - smileLvl);
+  curveVertex(-50 + moveX, 100 + moveY);
+  curveVertex(50 + moveX, 100 + moveY);
+  curveVertex(130 + moveX + smileLvl * .5, 100 + moveY -smileLvl);
+  curveVertex(130 + moveX + smileLvl, 100 + moveY - smileLvl * 2);
   endShape();
   resetMatrix();
   if(happy && startLearning){
-    if(smileLvl < 30){
+    if(smileLvl < 60){
       smileLvl += .7;
     }
   }
