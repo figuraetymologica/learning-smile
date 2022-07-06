@@ -19,7 +19,9 @@ function setup() {
   div = createDiv('<br>face-api models are loading...');
 
   canvas = createCanvas(270, 480).parent('myCanvas');
+  vid = createCapture(VIDEO);
   // use an async callback to load in the models and run the getResults() function
+  /*
   vid = createCapture(VIDEO, async () => {
     await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
     await faceapi.loadFaceExpressionModel(MODEL_URL);
@@ -34,6 +36,7 @@ function setup() {
     getResults(); // init once
   }).parent('myCanvas');
   vid.size(640, 480);
+  */
   vid.hide();
 }
 
@@ -44,9 +47,11 @@ async function getResults() {
 
 function draw() {
   translate(width/2, height/2);
-  scale(-1, 1);
+  //scale(-1, 1);
   background(0, 0, 255);
-  
+  textAlign(CENTER);
+  text(vid.width+", "+vid.height, 0, 0);
+  /*
   let eyeX;
   let eyeY;
   let happy;
@@ -90,8 +95,8 @@ function draw() {
       happy = false;
     }
   }
-  scale(2);
   face(eyeX, eyeY, happy);
+  */
 }
 
 function face(addX, addY, happy){
