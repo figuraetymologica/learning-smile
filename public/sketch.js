@@ -97,10 +97,10 @@ function face(addX, addY, happy){
   let moveX = 0;
   let moveY = 0;
 
-  if(addX && addY && startLearning){
+  /*if(addX && addY && startLearning){
     moveX = int(map(addX, 0, vid.width, -movement, movement));
     moveY = int(map(addY, 0, vid.height, -movement, movement));
-  }
+  }*/
     /*
     previouslyMoving = true;
     prevMoves = [moveX, moveY];
