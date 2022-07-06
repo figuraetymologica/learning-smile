@@ -21,7 +21,8 @@ function setup() {
   canvas = createCanvas(270, 480).parent('myCanvas');
   // use an async callback to load in the models and run the getResults() function
   vid = createCapture(VIDEO, async () => {
-    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+    //await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+    await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
     await faceapi.loadFaceExpressionModel(MODEL_URL);
     //div.elt.innerHTML = '<br>model loaded!';
     //Button zum Starten/Fullscreen-Aktivierung: Fullscreen kann nur durch Userinteraktion gestartet werden
@@ -33,12 +34,13 @@ function setup() {
     loaded = true;
     getResults(); // init once
   }).parent('myCanvas');
-  vid.size(640, 480);
+  vid.size(1160, 1544);
   vid.hide();
 }
 
 async function getResults() {
-  results = await faceapi.detectSingleFace(vid.elt, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
+  //results = await faceapi.detectSingleFace(vid.elt, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
+  results = await faceapi.detectSingleFace(vid.elt).withFaceExpressions();
   getResults();
 }
 
@@ -47,7 +49,7 @@ function draw() {
   scale(-1, 1);
   background(0, 0, 255); //background(170, 153, 255);
   //imageMode(CENTER);
-  //image(vid, 0, 0);
+  image(vid, 0, 0);
   let eyeX;
   let eyeY;
   let happy;
@@ -106,7 +108,7 @@ function face(addX, addY, happy){
 
     previouslyMoving = true;
     prevMoves = [moveX, moveY];
-  }else if(previouslyMoving){
+  }else if(previouslyMoving){ //damit bei nicht-Erkennen nicht "holprig" zurückgesprungen wird
     moveX = prevMoves[0];
     moveY = prevMoves[1];
   }
@@ -140,8 +142,4 @@ function startApp(){
   canvas.show();
   canvas = resizeCanvas(windowWidth, windowHeight);
   startLearning = true;
-}
-
-//damit nicht so holprig zurückgesprungen wird, wenn das Gesicht kurz nicht erkannt wird
-function swingBack(){ 
 }
