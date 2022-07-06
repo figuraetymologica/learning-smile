@@ -118,7 +118,7 @@ function face(addX, addY, happy){
     lastMovement = [moveX, moveY];
     lastMoved.shift();
     lastMoved.push(true);
-  }else if(startLearning){
+  } /*else if(startLearning){
     lastMoved.shift();
     lastMoved.push(false);
 
@@ -145,7 +145,7 @@ function face(addX, addY, happy){
     }
     moveX = lastMovement[0];
     moveY = lastMovement[1];
-  }
+  }*/
 
 
   ellipseMode(CENTER);
@@ -167,7 +167,7 @@ function face(addX, addY, happy){
   resetMatrix();
   if(happy && startLearning){
     if(smileLvl < 60){
-      smileLvl += .7;
+      smileLvl += .8;
     }
   }
 }
