@@ -21,8 +21,7 @@ function setup() {
   canvas = createCanvas(270, 480).parent('myCanvas');
   // use an async callback to load in the models and run the getResults() function
   vid = createCapture(VIDEO, async () => {
-    //await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
-    await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
+    await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
     await faceapi.loadFaceExpressionModel(MODEL_URL);
     //div.elt.innerHTML = '<br>model loaded!';
     //Button zum Starten/Fullscreen-Aktivierung: Fullscreen kann nur durch Userinteraktion gestartet werden
@@ -34,13 +33,12 @@ function setup() {
     loaded = true;
     getResults(); // init once
   }).parent('myCanvas');
-  vid.size(1160, 1544);
+  vid.size(640, 480);
   vid.hide();
 }
 
 async function getResults() {
-  //results = await faceapi.detectSingleFace(vid.elt, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
-  results = await faceapi.detectSingleFace(vid.elt).withFaceExpressions();
+  results = await faceapi.detectSingleFace(vid.elt, new faceapi.TinyFaceDetectorOptions()).withFaceExpressions();
   getResults();
 }
 
